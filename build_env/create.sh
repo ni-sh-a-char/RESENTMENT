@@ -34,4 +34,6 @@ bash -e build_scripts/xz.sh xz-5.2.5.tar.xz
 bash -e build_scripts/binutils-pass-2.sh
 bash -e build_scripts/gcc-pass-2.sh
 
+sudo -E build_scripts/build-chroot.sh
+
 echo "DONE!"
