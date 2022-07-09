@@ -18,6 +18,7 @@ else
   echo "yacc not found"
 fi
 
+bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f1,6-
 echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
 diff --version | head -n1
 find --version | head -n1
@@ -34,6 +35,7 @@ fi
 gcc --version | head -n1
 g++ --version | head -n1
 grep --version | head -n1
+ldd --version | head -n1 | cut -d" " -f2-  # glibc version
 gzip --version | head -n1
 cat /proc/version
 m4 --version | head -n1

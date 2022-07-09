@@ -26,7 +26,6 @@ make
 
 make DESTDIR=$LFS install
 
-sleep 5
 echo
 echo "TESTING GLIBC"
 echo

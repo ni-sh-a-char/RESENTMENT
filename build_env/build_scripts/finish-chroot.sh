@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 mkdir -pv /{boot,home,mnt,opt,srv}
 mkdir -pv /etc/{opt,sysconfig}
 mkdir -pv /lib/firmware
