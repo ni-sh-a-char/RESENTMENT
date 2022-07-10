@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
                 printf("\t\t- %s\n", l->str);
             }
         }
-
+        
         printf("\n");
     }
 }
