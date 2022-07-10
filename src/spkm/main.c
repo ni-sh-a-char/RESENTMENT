@@ -7,7 +7,7 @@ int main(int argc, char **argv) {
 
     package_list list = {0};
 
-    if (!package_load_all("/lld/LLD_linux_dist", &list)) {
+    if (!package_load_all("/windingshelf/RESENTMENT", &list)) {
         fprintf(stderr, "Failed to load packages!\n");
         return -1;
     }
