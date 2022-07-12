@@ -81,3 +81,6 @@ strip --strip-debug $LFS/usr/lib/* | true
 strip --strip-unneeded $LFS/usr/{,s}bin/* | true
 strip --strip-unneeded $LFS/tools/bin/* | true
 
+rm -rf $LFS/sources
+cd $LFS
+tar -cJpf $DIST_ROOT/build_env/dist-temp-tools.txz
