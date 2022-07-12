@@ -5,6 +5,7 @@ echo "Preparing ${LFS:?}"
 chown -R root:root $LFS/{usr,lib,var,etc,bin,sbin,tools,lib64}
 mkdir -pv $LFS/{dev,proc,sys,run}
 
+if ! test -c $LFS/dev/console ; then
 mknod -m 600 $LFS/dev/console c 5 1
 mknod -m 666 $LFS/dev/null c 1 3
 fi
@@ -80,7 +81,3 @@ strip --strip-debug $LFS/usr/lib/* | true
 strip --strip-unneeded $LFS/usr/{,s}bin/* | true
 strip --strip-unneeded $LFS/tools/bin/* | true
 
-rm -rf $LFS/sources
-cd $LFS
-
-tar -cJpf $DIST_ROOT/build_env/dist-temp-tools.txz .

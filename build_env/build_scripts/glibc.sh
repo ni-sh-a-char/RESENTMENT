@@ -34,8 +34,6 @@ $LFS_TGT-gcc dummy.c
 
 readelf -l a.out | grep '/ld-linux'
 
-sleep 5
-
 $LFS/tools/libexec/gcc/$LFS_TGT/11.2.0/install-tools/mkheaders
 
 cd $LFS/sources

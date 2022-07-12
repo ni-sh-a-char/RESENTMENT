@@ -7,7 +7,6 @@ tar -xf tzdata2021a.tar.gz
 ZONEINFO=/usr/share/zoneinfo
 mkdir -pv $ZONEINFO/{posix,right}
 
-
 for tz in etcetera southamerica northamerica europe africa antarctica  \
           asia australasia backward; do
     zic -L /dev/null   -d $ZONEINFO       ${tz}

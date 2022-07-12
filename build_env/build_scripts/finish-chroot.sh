@@ -40,7 +40,6 @@ bash -e build_scripts/chr-python.sh Python-3.10.2.tar.xz
 bash -e build_scripts/chr-textinfo.sh texinfo-6.8.tar.xz
 bash -e build_scripts/chr-util-linux.sh util-linux-2.37.4.tar.xz
 
-
 echo "Finished Chroot build!"
 
 find /usr/{lib,libexec} -name \*.la -delete
