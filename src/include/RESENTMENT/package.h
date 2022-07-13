@@ -24,6 +24,7 @@ extras: [
 */
 
 typedef struct {
+    //yaml fields
     char *name;
     char *version;
     char *repo;
@@ -33,6 +34,11 @@ typedef struct {
     str_list deps;
     str_list mkdeps;
     str_list extras;
+
+    //temp fields
+    bool installed;
+    char *repo_path;
+    bool is_dep;
 
 } RESENTMENT_package;
 
@@ -54,4 +60,20 @@ RESENTMENT_package *package_list_find(package_list *list, char *name);
 package_list_entry *package_list_add(package_list *list, RESENTMENT_package *pck);
 bool package_is_installed(char *root, char *name);
 
+typedef struct {
+    char *root;
+    char *pckm_base;
 
+    package_list all_packages; //entire repo
+    package_list packages; //packages to install/build
+    RESENTMENT_package *cur_pck;
+
+    //command line options.
+    bool install;
+    bool rebuild;
+    bool verbose;
+    bool rebuild_deps;
+
+} spkm_context;
+
+bool package_load_context(spkm_context *ctx, str_list *packages);

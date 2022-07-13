@@ -71,3 +71,51 @@ bool package_load_all(char *root, package_list *list) {
 
     return true;
 }
+
+bool package_list_add_deps(spkm_context *ctx, str_list *packages, bool is_dep){
+    for (str_list *l = packages; l && l->str; l = l->next){
+        RESENTMENT_package *pck = package_list_find(&ctx->all_packages, l->str);
+
+        if (!pck) {
+            fprintf(stderr, "Invalid Package: %s\n", l->str);
+            return false;
+        }
+
+        if (package_list_find(&ctx->packages, pck->name)){
+            //already exists in the install/build package list.
+            return true;
+        }
+
+        if (!package_list_add_deps(ctx, &pck->deps, true)){
+            fprintf(stderr, "Failed to add deps for package %s\n", l->str);
+            return false;
+        }
+
+        if (ctx->rebuild){
+            if (!package_list_add_deps(ctx, &pck->mkdeps, true)){
+                fprintf(stderr, "Failed to add mkdeps for package %s\n", l->str);
+                return false;
+            }
+        }
+
+        package_list_entry *e = NULL;
+
+        if (is_dep && (!pck->installed || ctx->rebuild_deps)){
+            e = package_list_add(&ctx->packages, pck);
+        } else if (!is_dep && (!pck->installed || ctx->rebuild)){
+            e = package_list_add(&ctx->packages, pck);
+        }
+
+        if (e) {
+            e->pck->is_dep = is_dep;
+        }
+    }
+
+    return true;
+}
+
+bool package_load_context(spkm_context *ctx, str_list *packages){
+    package_load_all(ctx->pckm_base, &ctx->all_packages);
+
+    return package_list_add_deps(ctx, packages, false);
+}

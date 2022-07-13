@@ -120,5 +120,10 @@ RESENTMENT_package *package_load(char *root, char *name){
 
     RESENTMENT_package *pck = parse_package(full_path);
 
+    pck->installed *package_is_installed(root, name);
+
+    snprintf(full_path, sizeof(full_path) - 1, "%s/repo/%c/%s", root, *name, name);
+    pck->repo_path = strdup(full_path);
+
     return pck;
 }

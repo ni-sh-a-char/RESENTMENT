@@ -48,3 +48,10 @@ u32 RESENTMENT_package_to_string(RESENTMENT_package *pck, char *buffer, u32 max_
         (pck->no_package ? "true" : "false"), str_deps, str_mkdeps, str_extras
         );
 }
+
+bool package_is_installed(char *root, char *name){
+    char full_path[1024];
+    snprintf(full_path, sizeof(full_path) - 1, "%s/inst/%c/%s/.pck", root, *name, name);
+
+    return access(full_path, F_OK) == 0;
+}
