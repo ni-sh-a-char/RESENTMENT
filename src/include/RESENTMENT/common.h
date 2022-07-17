@@ -19,3 +19,8 @@ str_list *str_list_from_str(char *str, char *sep);
 void str_list_free(str_list *l, bool free_head);
 
 bool create_package_path(char *root, char *name);
+
+int exec_command(char *exe, char *log_file, ...);
+bool copy_file(const char *from, char *to);
+bool copy_dir_contents(char *path, char *to);
+int remove_directory(char *path);

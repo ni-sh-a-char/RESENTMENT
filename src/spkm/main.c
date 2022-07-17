@@ -61,11 +61,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state){
 
 static struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0};
 
-bool package_build(char *root, RESENTMENT_package *pck){
-    //TODO
-    printf("Build skipping for now\n");
-    return true;
-}
+bool package_build(char *root, RESENTMENT_package *pck);
 
 bool package_install(spkm_context *ctx, RESENTMENT_package *pck){
     //TODO
@@ -118,9 +114,9 @@ int main(int argc, char **argv) {
                 fprintf(stderr, "Install Failure!\n");
                 return -1;
             }
+            printf("Package installed: %s\n", e->pck->name);
         }
 
-        printf("Package installed: %s\n", e->pck->name);
     }
 
 }

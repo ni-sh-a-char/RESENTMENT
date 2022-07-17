@@ -22,6 +22,8 @@ extras: [
 ]
 
 */
+static const char *DL_CACHE = "/usr/share/spkm/dl-cache/";
+static const char *BUILD_PATH = "/usr/share/spkm/build";
 
 typedef struct {
     //yaml fields
