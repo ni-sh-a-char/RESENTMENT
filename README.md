@@ -1,1 +1,2 @@
-Resesntment - A linux distribution
+Resentment - A linux distribution
+Resent the the orthodox...
