@@ -1,2 +1,9 @@
-build_env/build_root
-build_env/dist-temp-tools.txz
+# Built site and the OS files fetched from the v2.0.0 branch
+/site/
+/v2/
+
+# Editor and OS noise
+*.swp
+.DS_Store
+__pycache__/
+*.pyc

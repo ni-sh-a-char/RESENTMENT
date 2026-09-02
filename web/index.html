@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RESENTMENT OS — an AI operating system on its own kernel and your own key</title>
+<meta name="description" content="RESENTMENT OS is an AI operating system on the RESENTMENT kernel. Agents hold leases that expire, the whole system is one hash, any provider works with your own key, and nothing leaves your browser.">
+<meta name="theme-color" content="#07080b">
+<link rel="canonical" href="https://ni-sh-a-char.github.io/RESENTMENT/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RESENTMENT OS — give an AI a computer. Take it back at a time you choose.">
+<meta property="og:description" content="An AI operating system on its own kernel and your own key. Authority expires, the system is one hash, agents are processes, nothing is forgotten. Any provider. No server.">
+<meta property="og:url" content="https://ni-sh-a-char.github.io/RESENTMENT/">
+<meta property="og:image" content="https://ni-sh-a-char.github.io/RESENTMENT/social-preview.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script>
+try { var t = localStorage.getItem("resentment-os-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+</head>
+<body class="landing">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" opacity=".35" fill="none"/><circle cx="12" cy="12" r="1.4" fill="var(--accent)"/><path d="M12 12V5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/><path d="M12 12l5.5 3.3" stroke="var(--accent-2)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      RESENTMENT <span class="os">OS</span> <span class="ver">2.0.0</span>
+    </a>
+    <nav>
+      <a href="#ideas" class="hide-sm">Ideas</a>
+      <a href="#providers" class="hide-sm">Providers</a>
+      <a href="#kernel" class="hide-sm">Kernel</a>
+      <a href="architecture.html">Docs</a>
+      <a href="https://github.com/ni-sh-a-char/RESENTMENT" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn small primary" href="os/" target="_blank" rel="noopener">Open the OS</a>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================ hero -->
+<section class="hero">
+  <canvas id="wall" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="pulse"></span> <b>2.0.0 prahar</b> — on the RESENTMENT kernel, on your own key</span>
+        <h1 class="display">Give an AI<br>a computer.<br><span class="grad">Take it back<br>at <span id="until">14:47</span>.</span></h1>
+        <p class="lede">
+          RESENTMENT OS is an AI operating system built on its own kernel.
+          Agents hold <strong>leases</strong>, not permissions, and every one
+          expires. The whole system is <strong>one hash</strong>. Any model
+          provider works with <strong>your key</strong>, and nothing leaves
+          your browser.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="os/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Open the OS</a>
+          <a class="btn" href="building.html">Boot the kernel</a>
+          <a class="btn ghost" href="https://github.com/ni-sh-a-char/RESENTMENT" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.3 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>Source</a>
+        </div>
+        <ul class="facts">
+          <li><b>12</b> providers, <b>3</b> wire formats</li>
+          <li><b>0</b> servers, <b>0</b> dependencies</li>
+          <li><b>1</b> hash for the whole system</li>
+          <li><b>3</b> architectures under it</li>
+        </ul>
+      </div>
+
+      <div class="hero-demo">
+        <div class="monitor">
+          <div class="monitor-bar"><span class="dots"><i></i><i></i><i></i></span><span class="live"><span class="pulse"></span> live — the actual OS, not a picture</span><a href="os/" target="_blank" rel="noopener">open ↗</a></div>
+          <div class="screen">
+            <iframe src="os/" title="RESENTMENT OS, running" loading="lazy" tabindex="-1"></iframe>
+          </div>
+        </div>
+        <p class="demo-note">Runs here, in the page. Add a key in its Settings to bring a model. Everything it stores stays in this browser.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== ideas -->
+<section class="section" id="ideas">
+  <div class="wrap">
+    <h2>Four ideas, from ring 0 to the chat box</h2>
+    <p class="section-lede">Most "AI operating systems" are a chat window with file access. This one is built on a <a href="https://github.com/ni-sh-a-char/RESENTMENT---kernel" target="_blank" rel="noopener">kernel</a> whose ideas the desktop repeats at its own level, so the same rules hold in the boot sector and in the conversation.</p>
+
+    <div class="ideas">
+      <article class="idea">
+        <div class="idea-art">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="48" class="ring-track"/>
+            <circle cx="60" cy="60" r="48" class="ring-fill"/>
+            <text x="60" y="56" class="ring-txt">fs.write</text>
+            <text x="60" y="74" class="ring-sub" id="ring-left">14:32</text>
+          </svg>
+        </div>
+        <h3>Authority expires</h3>
+        <p>In the kernel, every capability carries a Kaalka seal with a time window. On the desktop, every permission an agent holds is a lease with a deadline. There is no "allow forever" button, so a forgotten grant stops working by itself.</p>
+        <a href="agents.html#leases">How leases work →</a>
+      </article>
+
+      <article class="idea">
+        <div class="idea-art">
+          <svg viewBox="0 0 160 120" aria-hidden="true" class="tree">
+            <path d="M80 22v18M80 40L40 62M80 40l40 22M40 62L22 88M40 62l18 26M120 62l-18 26M120 62l18 26"/>
+            <circle cx="80" cy="18" r="7" class="n root"/><circle cx="40" cy="62" r="6" class="n"/><circle cx="120" cy="62" r="6" class="n"/>
+            <circle cx="22" cy="92" r="5" class="n leaf"/><circle cx="58" cy="92" r="5" class="n leaf hot"/><circle cx="102" cy="92" r="5" class="n leaf"/><circle cx="138" cy="92" r="5" class="n leaf"/>
+          </svg>
+          <code class="hash" id="hash">7d4a1f0e83c25b9a6f1e0d4c8b3a7e2f</code>
+        </div>
+        <h3>The system is a hash</h3>
+        <p>Every kernel object is a node in a Merkle DAG and the machine has one root. Every file and setting on the desktop is a node too, and the OS has one root you can snapshot, diff and attest. Timestamps are out, so two machines with the same content agree. Keys are never in it.</p>
+        <a href="digest.html">What is hashed, and what is not →</a>
+      </article>
+
+      <article class="idea">
+        <div class="idea-art">
+          <table class="mini">
+            <tr><th>id</th><th>state</th><th>tokens</th><th></th></tr>
+            <tr><td>1</td><td><i class="dot run"></i>running</td><td>41 208</td><td>kill</td></tr>
+            <tr><td>2</td><td><i class="dot wait"></i>waiting</td><td>3 114</td><td>kill</td></tr>
+            <tr><td>3</td><td><i class="dot idle"></i>idle</td><td>128 990</td><td>kill</td></tr>
+          </table>
+        </div>
+        <h3>Agents are processes</h3>
+        <p>Inference in the kernel is a scheduling class with admission control and a budget. An agent on the desktop has a state, a token budget, a row in the process table, and a kill button. Killing it revokes its leases.</p>
+        <a href="agents.html">The agent loop →</a>
+      </article>
+
+      <article class="idea">
+        <div class="idea-art">
+          <ul class="mini-ledger">
+            <li><b>#41</b> agent:2 <code>tool fs_write</code> /home/documents/plan.md</li>
+            <li><b>#42</b> agent:2 <code>fs.write</code> /home/documents/plan.md <span>cause #41</span></li>
+            <li><b>#43</b> user <code>undo</code> to #40 <span>reversed 2</span></li>
+          </ul>
+        </div>
+        <h3>Nothing is forgotten</h3>
+        <p>The kernel records events in causal order for deterministic replay. The desktop writes every tool call to a ledger, and every file change names the call that caused it. Undo restores the files and is itself an entry. History is never deleted.</p>
+        <a href="agents.html#the-ledger">The ledger →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= providers -->
+<section class="section alt" id="providers">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <h2>Any provider. Your key. No middleman.</h2>
+        <p class="section-lede">The desktop speaks three wire formats, which is every model API anyone sells. Paste a key, pick a model, done. The key is stored in your browser, optionally sealed under a passphrase, and sent to exactly one place: the provider's own endpoint.</p>
+        <div class="chips">
+          <span>Anthropic</span><span>OpenAI</span><span>Google Gemini</span><span>Groq</span><span>Mistral</span><span>xAI</span><span>DeepSeek</span><span>OpenRouter</span><span>Together</span><span class="local">Ollama</span><span class="local">LM Studio</span><span class="local">vLLM · llama.cpp · any URL</span>
+        </div>
+        <a class="btn" href="providers.html">Every provider, and the CORS notes →</a>
+      </div>
+      <div class="flow">
+        <div class="node you"><b>Your browser</b><span>the desktop, your files, your key</span></div>
+        <div class="arrow"><span>one request, streamed back</span></div>
+        <div class="node them"><b>The provider you chose</b><span>and nobody else</span></div>
+        <div class="nope"><s>a RESENTMENT server</s> there isn't one</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== kernel -->
+<section class="section" id="kernel">
+  <div class="wrap">
+    <div class="split rev">
+      <div class="term-wrap">
+        <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span><span>make run · qemu-system-x86_64 · the bridge on :7411</span></div>
+        <pre class="term" id="term"><span class="t">[    0.021841] </span>kaalka   temporal keying active, epoch 29798350
+<span class="t">[    0.028901] </span>cap      capability system ready: 24 types, sealed
+<span class="t">[    0.082106] </span>smp      4 of 4 processors started
+<span class="t">[    0.118176] </span><span class="ok">selftest all 7 self-tests passed</span>
+<span class="t">[    0.119217] </span><span class="ok">boot     boot complete in 119 ms, 505.4 MiB free</span>
+
+<span class="k">  RESENTMENT 2.0.0 (kaalachakra)  x86_64  4 cpu</span>
+<span class="p">resentment&gt; </span>.run /boot/bin/facts.she
+<span class="k">not allowed to system.</span>
+<span class="cm">  This script was not granted permission to read the runtime graph.</span>
+<span class="p">resentment&gt; </span>.allow all
+<span class="ok">granted every permission</span>
+<span class="p">resentment&gt; </span>.run /boot/bin/facts.she
+arch=x86_64
+cpus=4
+digest=<span class="d">7d4a1f0e83c25b9a6f1e0d4c8b3a7e2f5d9c1b8a4e7f0c3d6a9b2e5f8c1d4a7b</span>
+angles=142.5,87.0,55.5</pre>
+      </div>
+      <div>
+        <h2>The kernel is real, and it is on the desk</h2>
+        <p class="section-lede">The <a href="https://github.com/ni-sh-a-char/RESENTMENT---kernel" target="_blank" rel="noopener">RESENTMENT kernel</a> is a from-scratch, capability-secure, AI-native kernel for x86_64, ARM64 and RISC-V: a transformer forward pass on its own operators, a SHE shell where programs start with no permissions, and a Merkle root for the whole machine. 1440 host assertions, six QEMU targets, seven self-tests on every boot.</p>
+        <p>It has a serial console and no network stack yet, so the desktop reaches it through a small bridge that relays the serial line over a WebSocket. Attach, and the <b>Kernel</b> window is a live console into ring 0, the <b>Digest</b> window shows the machine's root beside the desktop's, and the agent gets a <code>kernel_eval</code> tool gated by the kernel's own grants.</p>
+        <div class="layers">
+          <div><b>Desktop</b><span>browser · windows, apps, agents</span></div>
+          <div><b>Bridge</b><span>host · QEMU, serial ⇄ WebSocket</span></div>
+          <div><b>Ramdisk</b><span>/boot · the OS's SHE programs</span></div>
+          <div><b>Kernel</b><span>ring 0 · RESENTMENT 2.0.0</span></div>
+        </div>
+        <div class="cta">
+          <a class="btn" href="kernel.html">The bridge and the protocol →</a>
+          <a class="btn ghost" href="https://ni-sh-a-char.github.io/RESENTMENT---kernel/" target="_blank" rel="noopener">The kernel's own site ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================== status -->
+<section class="section alt" id="status">
+  <div class="wrap narrow">
+    <h2>Status, honestly</h2>
+    <p class="section-lede">A status table that overstates is worse than none.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Part</th><th>State</th></tr></thead>
+        <tbody>
+          <tr><td>Desktop: windows, dock, intent bar, ten apps, offline</td><td><b class="ok">working</b>, deployed on this page</td></tr>
+          <tr><td>Providers: Anthropic, OpenAI-compatible, Gemini; streaming and tool calls</td><td><b class="ok">working</b>, tested against recorded streams</td></tr>
+          <tr><td>Leases, ledger with undo, digest with snapshot, diff and attest</td><td><b class="ok">working</b>, tested</td></tr>
+          <tr><td>Vault: plain, or AES-GCM under a passphrase</td><td><b class="ok">working</b>, tested</td></tr>
+          <tr><td>Bridge: QEMU's serial line over a WebSocket</td><td><b class="ok">working</b>, tested against a fake kernel and against QEMU in CI</td></tr>
+          <tr><td>The kernel boots with the OS ramdisk and answers the desktop</td><td><b class="ok">working</b> on x86_64 in CI; aarch64 and riscv64 build and attach the same way</td></tr>
+          <tr><td>The desktop running <em>inside</em> the kernel</td><td><b class="no">not yet</b> — the kernel needs a network stack and a compositor first; both are on <a href="https://github.com/ni-sh-a-char/RESENTMENT---kernel/blob/main/ROADMAP.md" target="_blank" rel="noopener">its roadmap</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Today the desktop runs in a browser on a host and drives the kernel. The direction is for the desktop to run on the kernel, and every choice here — no server, no build step, no ambient authority, one hash — is made so that move is a port and not a rewrite. <a href="roadmap.html">The roadmap</a> says what comes next and what will not.</p>
+  </div>
+</section>
+
+<!-- ============================================================= get -->
+<section class="section" id="get">
+  <div class="wrap">
+    <h2>Three ways in</h2>
+    <div class="ways">
+      <a class="way" href="os/" target="_blank" rel="noopener">
+        <span class="num">01</span>
+        <h3>Open it</h3>
+        <p>Right here, right now. Add a key in Settings. Nothing to install and nothing leaves your browser.</p>
+        <span class="way-cta">Open the OS →</span>
+      </a>
+      <div class="way">
+        <span class="num">02</span>
+        <h3>Install it</h3>
+        <p>It is an installable app: open it, then use your browser's "install" or "add to home screen". It works offline, except for the model.</p>
+        <span class="way-cta muted">From inside the OS</span>
+      </div>
+      <div class="way">
+        <span class="num">03</span>
+        <h3>Boot the kernel</h3>
+        <div class="code"><button class="copy" type="button" aria-label="Copy">copy</button><pre><code>git clone --recursive -b v2.0.0 https://github.com/ni-sh-a-char/RESENTMENT.git
+cd RESENTMENT
+make toolchain
+make run</code></pre></div>
+        <span class="way-cta"><a href="building.html">Building →</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h5>RESENTMENT OS</h5>
+        <p class="about">An AI operating system on its own kernel and your own key. Authority expires, the system is a hash, agents are processes, nothing is forgotten.</p>
+        <a class="support-line" href="https://buymeacoffee.com/piyushmishra00" target="_blank" rel="noopener">Buy me a coffee</a>
+      </div>
+      <div><h5>Design</h5><a href="architecture.html">Architecture</a><a href="agents.html">Agents</a><a href="digest.html">The digest</a><a href="kernel.html">The kernel</a></div>
+      <div><h5>Guides</h5><a href="desktop.html">The desktop</a><a href="providers.html">Providers</a><a href="building.html">Building</a><a href="contributing.html">Contributing</a></div>
+      <div><h5>Project</h5><a href="roadmap.html">Roadmap</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="governance.html">Governance</a><a href="https://github.com/ni-sh-a-char/RESENTMENT---kernel" target="_blank" rel="noopener">The kernel ↗</a></div>
+    </div>
+    <div class="legal">
+      <span>Apache 2.0. Made by <a href="https://github.com/PIYUSH-MISHRA-00" target="_blank" rel="noopener">Piyush Mishra</a>.</span>
+      <span>Built from the repository at <code>{{commit}}</code> — the docs on this site are the docs in the tree, and the OS on this site is the OS in the tree.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>

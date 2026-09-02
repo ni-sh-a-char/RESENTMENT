@@ -1,0 +1,9 @@
+# Every change gets a review from a maintainer.
+*                       @PIYUSH-MISHRA-00
+
+# The parts where a mistake is a vulnerability rather than a defect.
+/os/desktop/js/core.js       @PIYUSH-MISHRA-00
+/os/desktop/js/agent.js      @PIYUSH-MISHRA-00
+/os/desktop/js/providers.js  @PIYUSH-MISHRA-00
+/os/bridge/                  @PIYUSH-MISHRA-00
+/SECURITY.md                 @PIYUSH-MISHRA-00

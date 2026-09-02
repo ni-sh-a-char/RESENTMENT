@@ -1,0 +1,47 @@
+# SPDX-License-Identifier: Apache-2.0
+#
+# The website. It renders the docs from the v2.0.0 branch and ships the
+# desktop from the same branch at /os/, so a visitor can read about the OS
+# and then open it, and neither can drift from the code. Nothing here is a
+# framework: tools/mksite.py is a hundred lines of Markdown rendering.
+name: website
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:     # the v2.0.0 CI triggers this when it goes green
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the OS from the v2.0.0 branch
+        run: sh tools/fetch-v2.sh
+      - name: Build the site
+        run: python3 tools/mksite.py
+      - name: Check that every internal link resolves
+        run: python3 tools/checklinks.py site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

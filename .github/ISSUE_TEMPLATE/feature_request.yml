@@ -1,0 +1,46 @@
+name: Proposal
+description: Something the OS should be able to do and cannot
+labels: ["proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check [ROADMAP.md](https://github.com/ni-sh-a-char/RESENTMENT/blob/main/ROADMAP.md)
+        first — it lists what is planned and what this project has decided
+        not to do, with the reason for each.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do that you cannot do today? The situation, not the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you propose
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you considered instead
+      description: Including "do nothing". The smallest change that solves the problem usually wins here.
+
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Which layer
+      multiple: true
+      options:
+        - The desktop and its apps
+        - Agents, tools, leases, the ledger
+        - Providers
+        - The digest
+        - The bridge and the kernel link
+        - The ramdisk programs
+        - Build, tooling and tests
+        - The website and documentation

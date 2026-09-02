@@ -1,0 +1,56 @@
+name: Bug report
+description: Something in the OS behaves incorrectly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If this is a **security** issue, please do not open an issue — see
+        [SECURITY.md](https://github.com/ni-sh-a-char/RESENTMENT/blob/main/SECURITY.md).
+        If it is in the kernel itself, it belongs in the
+        [kernel repository](https://github.com/ni-sh-a-char/RESENTMENT---kernel/issues).
+
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where
+      multiple: true
+      options:
+        - The desktop, from the website
+        - The desktop, served locally
+        - The bridge
+        - A provider (say which below)
+        - The kernel through the bridge
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: "Chrome 140, Firefox 143, Safari 26…"
+    validations:
+      required: true
+
+  - type: input
+    id: provider
+    attributes:
+      label: Provider and model, if relevant
+      placeholder: "Anthropic claude-opus-5, Ollama llama3.2, a custom vLLM…"
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what happened instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: The smallest thing that shows it. A ledger export or a browser console log is ideal.
+      render: text
+    validations:
+      required: true

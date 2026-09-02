@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/ni-sh-a-char/RESENTMENT/security/advisories/new
+    about: Report privately. Do not open a public issue.
+  - name: Question or design discussion
+    url: https://github.com/ni-sh-a-char/RESENTMENT/discussions
+    about: Ask here rather than filing an issue.
+  - name: The kernel
+    url: https://github.com/ni-sh-a-char/RESENTMENT---kernel/issues
+    about: Anything under kernel/ belongs to the kernel repository.
+  - name: Documentation
+    url: https://ni-sh-a-char.github.io/RESENTMENT/
+    about: Architecture, agents, providers, the digest, the kernel, building.

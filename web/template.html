@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}} — RESENTMENT OS</title>
+<meta name="description" content="{{title}} — documentation for RESENTMENT OS, an AI operating system on its own kernel and your own key.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<script>
+try { var t = localStorage.getItem("resentment-os-theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" opacity=".35" fill="none"/><circle cx="12" cy="12" r="1.4" fill="var(--accent)"/><path d="M12 12V5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/><path d="M12 12l5.5 3.3" stroke="var(--accent-2)" stroke-width="1.8" stroke-linecap="round"/></svg>
+      RESENTMENT <span class="os">OS</span> <span class="ver">2.0.0</span>
+    </a>
+    <nav>
+      <a href="architecture.html">Docs</a>
+      <a class="hide-sm" href="roadmap.html">Roadmap</a>
+      <a class="hide-sm" href="changelog.html">Changelog</a>
+      <a href="https://github.com/ni-sh-a-char/RESENTMENT" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn small primary" href="os/" target="_blank" rel="noopener">Open the OS</a>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Open the documentation menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<div class="docs">
+  <aside class="sidebar">
+    {{nav}}
+  </aside>
+
+  <article class="prose">
+    {{content}}
+    <div class="page-foot">
+      <span>Source: <a href="https://github.com/ni-sh-a-char/RESENTMENT/blob/{{branch}}/{{source}}" target="_blank" rel="noopener">{{source}}</a> on <code>{{branch}}</code></span>
+      <a href="https://github.com/ni-sh-a-char/RESENTMENT/edit/{{branch}}/{{source}}" target="_blank" rel="noopener">Improve this page</a>
+    </div>
+  </article>
+
+  {{toc}}
+</div>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h5>RESENTMENT OS</h5>
+        <p class="about">An AI operating system on its own kernel and your own key. Authority expires, the system is a hash, agents are processes, nothing is forgotten.</p>
+        <a class="support-line" href="https://buymeacoffee.com/piyushmishra00" target="_blank" rel="noopener">Buy me a coffee</a>
+      </div>
+      <div><h5>Design</h5><a href="architecture.html">Architecture</a><a href="agents.html">Agents</a><a href="digest.html">The digest</a><a href="kernel.html">The kernel</a></div>
+      <div><h5>Guides</h5><a href="desktop.html">The desktop</a><a href="providers.html">Providers</a><a href="building.html">Building</a><a href="contributing.html">Contributing</a></div>
+      <div><h5>Project</h5><a href="roadmap.html">Roadmap</a><a href="changelog.html">Changelog</a><a href="security.html">Security</a><a href="governance.html">Governance</a><a href="https://github.com/ni-sh-a-char/RESENTMENT---kernel" target="_blank" rel="noopener">The kernel ↗</a></div>
+    </div>
+    <div class="legal">
+      <span>Apache 2.0. Made by <a href="https://github.com/PIYUSH-MISHRA-00" target="_blank" rel="noopener">Piyush Mishra</a>.</span>
+      <span>Built from the repository at <code>{{commit}}</code>.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="site.js"></script>
+</body>
+</html>
