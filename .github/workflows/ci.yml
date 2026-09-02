@@ -1,0 +1,78 @@
+# SPDX-License-Identifier: Apache-2.0
+name: build and test
+
+on:
+  push:
+    branches: [v2.0.0, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # The desktop's logic - filesystem, digest, leases, ledger, vault, the
+  # provider adapters, the agent loop, the shell, the kernel link - under
+  # Node, with no browser and no network.
+  desktop:
+    name: desktop under node
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node --test "tests/*.test.js"
+
+  # The serial bridge against a fake kernel: handshake, backlog replay,
+  # single-holder rule, relay in both directions.
+  bridge:
+    name: bridge against a fake kernel
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/test_bridge.py
+
+  # The real thing: build the kernel from the submodule with the OS's
+  # programs in its ramdisk, boot it under QEMU, attach through the bridge
+  # exactly as the desktop does, and run the OS's own SHE program.
+  kernel:
+    name: boot the kernel through the bridge (${{ matrix.arch }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Install the toolchain and QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential nasm python3 qemu-system-x86
+      - name: Build the kernel with the OS ramdisk
+        run: make ARCH=${{ matrix.arch }} TOOLCHAIN=gcc kernel
+      - name: The kernel's own host suite still passes with our ramdisk
+        run: make TOOLCHAIN=gcc kernel-test
+      - name: Boot it and drive the shell through the bridge
+        run: make ARCH=${{ matrix.arch }} TOOLCHAIN=gcc qemu-test
+      - uses: actions/upload-artifact@v4
+        with:
+          name: resentment-os-${{ matrix.arch }}
+          path: |
+            kernel/dist/${{ matrix.arch }}/resentment.elf
+            kernel/dist/${{ matrix.arch }}/initrd.tar
+          if-no-files-found: error
+
+  # The website on main renders this branch's docs and ships this branch's
+  # desktop, so a green build here asks main to publish again.
+  site:
+    name: republish the site
+    needs: [desktop, bridge, kernel]
+    if: github.ref == 'refs/heads/v2.0.0' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - run: gh workflow run pages.yml --ref main -R "$GITHUB_REPOSITORY"
+        env:
+          GH_TOKEN: ${{ github.token }}

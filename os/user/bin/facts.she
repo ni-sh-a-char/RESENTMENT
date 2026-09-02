@@ -1,0 +1,16 @@
+# facts.she - the machine, one fact per line, for the desktop to parse.
+#
+# RESENTMENT OS runs this over the serial bridge to fill its Digest window
+# with the kernel's side of the story. key=value on purpose: the desktop
+# splits on the first "=" and the format needs no parser on either side.
+#
+# Needs: graph (system, digest), time (angles), read (recall).
+
+let s = system()
+say "arch=" + s["arch"]
+say "cpus=" + s["cpus"]
+say "memory_free=" + s["memory_free"]
+say "digest=" + digest()
+let a = angles()
+say "angles=" + a[0] + "," + a[1] + "," + a[2]
+say "boots=" + text(recall("boot_count"))

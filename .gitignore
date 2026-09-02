@@ -1,2 +1,14 @@
-build_env/build_root
-build_env/dist-temp-tools.txz
+# Build output
+/build/
+/dist/
+/site/
+
+# Toolchain fetched by `make toolchain`, inside the kernel submodule
+/kernel/.toolchain/
+
+# Editor and OS noise
+*.swp
+.DS_Store
+__pycache__/
+*.pyc
+node_modules/

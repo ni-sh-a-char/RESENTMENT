@@ -1,0 +1,9 @@
+# Everything text keeps LF endings on every platform. The kernel submodule
+# carries the same rule for its own reasons; here it is because the site
+# generator, the tests and the SHE programs are read by tools that treat a
+# stray CR as content.
+*          text=auto eol=lf
+*.png      binary
+*.jpg      binary
+*.ico      binary
+*.woff2    binary

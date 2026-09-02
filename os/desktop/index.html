@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RESENTMENT OS</title>
+<meta name="description" content="An AI operating system on its own kernel and your own key. Authority expires, the whole system is one hash, agents are processes.">
+<meta name="theme-color" content="#07080b">
+<meta name="color-scheme" content="dark light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="stylesheet" href="os.css">
+<script>
+/* Theme before first paint, so a light setting does not flash dark. */
+try { var s = localStorage.getItem("resentment-theme"); if (s) document.documentElement.setAttribute("data-theme", s); } catch (e) {}
+</script>
+</head>
+<body>
+<canvas id="wall" aria-hidden="true"></canvas>
+
+<header id="top">
+  <button id="brand" title="About RESENTMENT OS">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" opacity=".35" fill="none"/><circle cx="12" cy="12" r="1.4" fill="var(--accent)"/><path d="M12 12V5" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round"/><path d="M12 12l5.5 3.3" stroke="var(--accent-2)" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>RESENTMENT</span>
+  </button>
+  <nav id="winlist" aria-label="Open windows"></nav>
+  <button id="intent-btn" title="Ctrl+K"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Ask, open, run…</span><kbd>Ctrl K</kbd></button>
+  <div id="status">
+    <span id="procs" class="muted"></span>
+    <button id="leases" class="pill" title="Active leases">no leases</button>
+    <button id="kstate" class="pill dotpill" title="kernel not attached"><i></i>kernel</button>
+    <button id="digest" class="pill mono" title="The whole OS as one hash">…</button>
+    <span id="clock"></span>
+  </div>
+</header>
+
+<main id="windows"></main>
+
+<nav id="dock" aria-label="Apps"></nav>
+
+<div id="intent" hidden>
+  <div class="box">
+    <input placeholder="Open an app, ask anything, or > run a command" autocomplete="off" spellcheck="false" aria-label="Intent">
+    <div class="results"></div>
+  </div>
+</div>
+
+<div id="lease" class="modal" hidden></div>
+<div id="toasts" aria-live="polite"></div>
+
+<div id="boot" aria-hidden="true"><div class="ring"></div><span>RESENTMENT OS</span></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

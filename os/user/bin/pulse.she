@@ -1,0 +1,13 @@
+# pulse.she - prove the machine is the machine, briefly.
+#
+# The desktop's "attest" button, on the kernel side: seal the current digest
+# for sixty seconds and print the seal. A claim about a machine that is not
+# bound to a moment is a claim about no machine in particular.
+#
+# Needs: graph (digest), cap (seal).
+
+let d = digest()
+let proof = seal(d, 60)
+say "digest=" + d
+say "sealed_until=" + proof["until"]
+say "epoch=" + proof["epoch"]

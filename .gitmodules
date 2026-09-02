@@ -1,0 +1,4 @@
+[submodule "kernel"]
+	path = kernel
+	url = https://github.com/ni-sh-a-char/RESENTMENT---kernel.git
+	branch = v2.0.0
