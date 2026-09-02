@@ -374,6 +374,7 @@ const settings = {
 			$(body, ".keys").href = p.keys || "#"; $(body, ".keys").hidden = !p.keys;
 			$(body, ".keyrow").hidden = !!p.local;
 			keyIn.value = p.local ? "" : (os.vault.locked ? "" : await os.vault.get(p.id).catch(() => ""));
+			if (sel.value !== p.id) return;   /* the user moved on while the vault was read */
 			keyIn.placeholder = os.vault.locked ? "vault is locked" : "paste your key";
 			baseIn.value = c.base || ""; baseIn.placeholder = p.base || "https://…/v1";
 			modelIn.value = c.model || (s.get("provider") === p.id ? s.get("model") : "") || p.models[0] || "";
