@@ -19,8 +19,9 @@ different process, a different machine, or a different privilege level.
 
 ## The desktop
 
-Static files: one HTML page, one stylesheet, eight ES modules. No framework,
-no bundler, no dependency, no server. It runs from GitHub Pages, from a
+Static files: one HTML page, one stylesheet, nine ES modules. No framework,
+no bundler, no server, and one dependency: the WebLLM runtime, loaded from a
+CDN only when the user chooses to run a model inside the browser. It runs from GitHub Pages, from a
 `file://` URL, from `python -m http.server`, or from the bridge.
 
 The modules split by whether they touch the DOM:
@@ -122,4 +123,4 @@ rewrite:
 - no ambient authority, so the permission model already matches the kernel's
 - one hash, computed the same way the kernel computes its own
 - a shell whose commands are a function, not a UI
-- a provider layer that is `fetch` and nothing else
+- a provider layer that is `fetch`, plus one in-browser inference runtime

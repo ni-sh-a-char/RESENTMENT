@@ -3,6 +3,17 @@
 All notable changes to this project are recorded here. This project follows
 [semantic versioning](https://semver.org/).
 
+## Unreleased
+
+- **Local models inside the browser.** A new provider, *In your browser
+  (WebGPU, no server)*, runs Llama 3, Hermes 3, Qwen 3, Phi 4 mini, Gemma 2
+  and the rest of the WebLLM catalogue on your own GPU, in a web worker,
+  with no key and nothing leaving the machine. Weights download once and
+  cache; progress shows in the chat's status line. Tool calling is offered
+  to the models that support it and withheld from the ones that do not.
+  This is the one runtime the desktop loads from a CDN, pinned, and only
+  when chosen.
+
 ## 2.0.0 — "prahar"
 
 RESENTMENT becomes an operating system on its own kernel. Version 1.0.0 was a

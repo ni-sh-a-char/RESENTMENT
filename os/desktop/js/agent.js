@@ -147,6 +147,9 @@ export class Agent {
 					key, base: custom.base, model: this.model, system: systemPrompt(this.os, this),
 					messages: this.messages, tools: TOOLS,
 					fallbacks: p.kind === "anthropic" && this.os.settings.get("anthropicFallbacks"),
+					/* An in-browser model reports its download; that is the
+					 * agent's reason for the moment, shown under the chat. */
+					onStatus: (t) => { this.reason = t; emit("agent", { agent: this, kind: "state" }); },
 				}, this.os.fetch, this.abort.signal);
 				for await (const ev of it) {
 					if (ev.type === "text") {

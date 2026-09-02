@@ -8,7 +8,7 @@
  */
 const CACHE = "resentment-os";
 const FILES = ["./", "./index.html", "./os.css", "./icon.svg", "./manifest.webmanifest",
-               "./js/main.js", "./js/core.js", "./js/providers.js", "./js/agent.js", "./js/kernel.js", "./js/shell.js", "./js/wm.js", "./js/apps.js"];
+               "./js/main.js", "./js/core.js", "./js/providers.js", "./js/agent.js", "./js/kernel.js", "./js/shell.js", "./js/wm.js", "./js/apps.js", "./js/llm-worker.js"];
 
 self.addEventListener("install", (e) => {
 	e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting()));

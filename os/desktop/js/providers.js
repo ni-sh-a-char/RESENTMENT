@@ -5,12 +5,16 @@
  * messages are lists of content blocks (text, tool_use, tool_result), a
  * request is {url, headers, body}, and a stream is a sequence of small
  * events - text, tool, usage, stop. Three wire formats cover everything
- * anyone sells today:
+ * anyone sells today, plus one that needs nobody's server:
  *
  *   anthropic   the Messages API
  *   openai      /chat/completions, which every other vendor and every local
  *               server (Ollama, LM Studio, vLLM, llama.cpp) also speaks
  *   gemini      generateContent
+ *   webllm      a model running inside this browser on WebGPU, through the
+ *               WebLLM runtime, fetched on first use and only then. It is the
+ *               one thing the desktop loads from a CDN, because a GPU
+ *               inference engine is not something to write in an evening.
  *
  * The functions that build requests and parse events are pure, so the
  * tests can run them under Node against recorded streams and the browser
@@ -43,6 +47,10 @@ export const PROVIDERS = [
 	  headers: { "HTTP-Referer": "https://ni-sh-a-char.github.io/RESENTMENT/", "X-Title": "RESENTMENT OS" } },
 	{ id: "together", name: "Together", kind: "openai", base: "https://api.together.xyz/v1",
 	  models: ["meta-llama/Llama-3.3-70B-Instruct-Turbo"], keys: "https://api.together.xyz/settings/api-keys" },
+	{ id: "browser", name: "In your browser (WebGPU, no server)", kind: "webllm", base: "",
+	  models: ["Llama-3.2-3B-Instruct-q4f16_1-MLC", "Hermes-3-Llama-3.2-3B-q4f16_1-MLC", "Qwen3-0.6B-q4f16_1-MLC", "Phi-4-mini-instruct-q4f16_1-MLC", "gemma-2-2b-it-q4f16_1-MLC", "Llama-3.1-8B-Instruct-q4f16_1-MLC"],
+	  local: true, usage: false,
+	  note: "Runs the model on your own GPU, inside this tab. No key, no server, nothing leaves the machine. The first use downloads the weights (0.5 to 5 GB) and caches them. Needs WebGPU: Chrome, Edge, or a recent Safari. Only the Hermes models can use tools; the others answer in text." },
 	{ id: "ollama", name: "Ollama (local)", kind: "openai", base: "http://localhost:11434/v1",
 	  models: ["llama3.2", "qwen2.5", "gemma3"], local: true, usage: false,
 	  note: "Start Ollama with OLLAMA_ORIGINS=* so a browser page may call it. No key needed." },
@@ -252,6 +260,7 @@ export function sseDecoder() {
 /* Run one model call and yield normalised events. `fetchImpl` is injected
  * so the tests can hand in a recorded stream. */
 export async function* stream(p, o, fetchImpl = globalThis.fetch, signal) {
+	if (p.kind === "webllm") return yield* streamWebLLM(p, o, signal);
 	const req = buildRequest(p, o);
 	let res;
 	try {
@@ -288,8 +297,61 @@ function networkHint(p, e) {
 	return `could not reach ${p.name}: ${e.message}. A browser extension, a proxy, or the provider's CORS policy may be blocking direct calls.`;
 }
 
+/* ------------------------------------------------------ in the browser */
+
+export const WEBLLM_URL = "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.84/+esm";
+let webllmLib = null;
+let engine = null, engineModel = "";
+
+async function loadWebLLM() {
+	if (!globalThis.navigator || !navigator.gpu) throw new Error("this browser has no WebGPU. Chrome, Edge or a recent Safari can run models in the tab; otherwise point the OS at Ollama or LM Studio.");
+	if (!webllmLib) webllmLib = await import(/* @vite-ignore */ WEBLLM_URL);
+	return webllmLib;
+}
+
+/* One engine per tab, in a worker so the desktop stays responsive while a
+ * few gigabytes of weights are decoded. Switching model reloads it. */
+async function getEngine(model, onStatus) {
+	const lib = await loadWebLLM();
+	const report = (r) => onStatus && onStatus(r.text.replace(/\[.*?\]\s*/, "").slice(0, 140));
+	if (engine && engineModel === model) return engine;
+	if (engine) { engine.setInitProgressCallback(report); await engine.reload(model); engineModel = model; return engine; }
+	const worker = new Worker(new URL("./llm-worker.js", import.meta.url), { type: "module" });
+	engine = await lib.CreateWebWorkerMLCEngine(worker, model, { initProgressCallback: report });
+	engineModel = model;
+	return engine;
+}
+
+/* Does this model know how to call tools? WebLLM keeps the list. */
+export async function webllmSupportsTools(model) {
+	const lib = await loadWebLLM();
+	return lib.functionCallingModelIds.includes(model);
+}
+
+async function* streamWebLLM(p, o, signal) {
+	const eng = await getEngine(o.model, o.onStatus);
+	if (o.onStatus) o.onStatus("");
+	/* Same wire shape as /chat/completions, so the openai builder and parser
+	 * do the work; only the transport differs. */
+	const { body } = buildRequest({ kind: "openai", base: "local", usage: false }, o);
+	const lib = await loadWebLLM();
+	const req = { messages: body.messages, stream: true, stream_options: { include_usage: true } };
+	if (body.tools && lib.functionCallingModelIds.includes(o.model)) req.tools = body.tools;
+	const parser = makeParser("openai");
+	const chunks = await eng.chat.completions.create(req);
+	for await (const chunk of chunks) {
+		if (signal && signal.aborted) { await eng.interruptGenerate(); break; }
+		for (const ev of parser.feed(chunk)) yield ev;
+	}
+	for (const ev of parser.end()) yield ev;
+}
+
 /* The model list a provider will admit to, for the settings screen. */
 export async function listModels(p, key, base, fetchImpl = globalThis.fetch) {
+	if (p.kind === "webllm") {
+		const lib = await loadWebLLM();
+		return lib.prebuiltAppConfig.model_list.map((m) => m.model_id).filter((id) => id.includes("q4f16_1") && !id.endsWith("-1k"));
+	}
 	const b = (base || p.base).replace(/\/+$/, "");
 	const h = {};
 	let url;

@@ -411,7 +411,8 @@ const settings = {
 				result.textContent = "testing…";
 				try {
 					let txt = "";
-					for await (const ev of stream(p, { key: keyIn.value.trim(), base: baseIn.value.trim(), model: modelIn.value.trim(), messages: [userMsg("Reply with the single word OK.")], maxTokens: 64 }, os.fetch)) if (ev.type === "text") txt += ev.text;
+					const onStatus = (t) => { if (t) result.textContent = t; };
+					for await (const ev of stream(p, { key: keyIn.value.trim(), base: baseIn.value.trim(), model: modelIn.value.trim(), messages: [userMsg("Reply with the single word OK.")], maxTokens: 64, onStatus }, os.fetch)) if (ev.type === "text") txt += ev.text;
 					result.textContent = "works: " + txt.trim().slice(0, 80);
 				} catch (err) { result.textContent = "failed: " + err.message; }
 			}
@@ -631,7 +632,7 @@ const about = {
 			<div class="about">
 				<div class="mark"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2" opacity=".3" fill="none"/><circle cx="32" cy="32" r="3" fill="var(--accent)"/><path d="M32 32V12" stroke="var(--accent)" stroke-width="3.5" stroke-linecap="round"/><path d="M32 32l15 9" stroke="var(--accent-2)" stroke-width="3.5" stroke-linecap="round"/></svg></div>
 				<h2>RESENTMENT OS <span class="ver">${VERSION} · ${CODENAME}</span></h2>
-				<p class="lede">An AI operating system that runs on its own kernel and on your own key. Apache 2.0, no server, no telemetry.</p>
+				<p class="lede">An AI operating system that runs on its own kernel and on your own key, or on your own GPU with no key at all. Apache 2.0, no server, no telemetry.</p>
 				<ul class="ideas">
 					<li><b>Authority expires.</b> Every permission an agent holds is a lease with a deadline, like every capability in the kernel is a seal with a window.</li>
 					<li><b>The system is a hash.</b> Your whole OS has one SHA-256 root. Snapshot it, diff it, attest it. The kernel has the same for the machine.</li>

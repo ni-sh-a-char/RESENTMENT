@@ -16,7 +16,7 @@
 
 **An AI operating system on its own kernel and your own key.**
 
-Open it. Paste a key from any model provider. Ask for something. Watch the
+Open it. Paste a key from any model provider, or pick a model that runs on your own GPU inside the browser. Ask for something. Watch the
 agent stop at the first permission it does not have, grant it for fifteen
 minutes, and watch the whole system's hash change when it writes a file.
 
@@ -52,16 +52,17 @@ apps, runs commands or asks the model, offline as an installable app, light
 and dark, and an accent colour keyed from the clock the way the kernel keys
 its authority from the clock.
 
-### Bring your own key, from anyone
+### Bring your own key, from anyone. Or bring no key at all
 
 | Provider | How it is reached |
 |---|---|
+| **Your own GPU, inside the browser** | WebGPU through the WebLLM runtime: no key, no server, nothing leaves the machine. Llama 3, Hermes 3, Qwen 3, Phi 4, Gemma 2 and more; weights download once and cache |
 | Anthropic | the Messages API, directly from the browser |
 | OpenAI, Groq, Mistral, xAI, DeepSeek, OpenRouter, Together | `/chat/completions` |
 | Google Gemini | `generateContent` |
 | Ollama, LM Studio, vLLM, llama.cpp, anything OpenAI-compatible | `/chat/completions` on the address you give it |
 
-Keys stay in this browser. Optionally sealed under a passphrase with AES-GCM.
+Local models work three ways: entirely inside the browser on WebGPU, through Ollama or LM Studio on your machine, or through any OpenAI-compatible server you run. Keys, where there are any, stay in this browser. Optionally sealed under a passphrase with AES-GCM.
 Never exported, never in the digest, never sent anywhere but the provider's own
 endpoint. There is no RESENTMENT server.
 
@@ -91,7 +92,8 @@ kernel/          the RESENTMENT kernel, a git submodule pinned to its v2.0.0
 os/
   desktop/       the desktop: static HTML, CSS and ES modules, no build step
     js/core.js       filesystem, digest, leases, ledger, vault - no DOM
-    js/providers.js  Anthropic, OpenAI-compatible and Gemini adapters
+    js/providers.js  Anthropic, OpenAI-compatible, Gemini, and in-browser WebGPU
+    js/llm-worker.js the in-browser model, off the main thread
     js/agent.js      agents as processes: tools, scopes, budgets
     js/shell.js      the terminal's command language
     js/kernel.js     the serial protocol to the kernel
@@ -110,6 +112,7 @@ docs/            how it fits together, and why
 |---|---|
 | Desktop: windows, dock, intent bar, ten apps, offline | **working**, deployed at the link above |
 | Providers: Anthropic, OpenAI-compatible, Gemini, streaming, tool calls | **working**, request shaping and stream parsing tested |
+| Local models: in the browser on WebGPU, or through Ollama, LM Studio and any local server | **working**; in-browser needs a WebGPU browser and one download per model |
 | Leases, ledger with undo, digest with snapshot/diff/attest | **working**, tested |
 | Vault: plain or AES-GCM under a passphrase | **working**, tested |
 | Bridge: QEMU serial over WebSocket | **working**, tested against a fake kernel and against QEMU in CI |

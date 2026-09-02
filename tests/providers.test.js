@@ -135,3 +135,12 @@ test("stream(): end to end over a fake fetch, and errors carry the server messag
 	const bad = async () => new Response('{"error":{"message":"invalid x-api-key"}}', { status: 401, statusText: "Unauthorized" });
 	await assert.rejects(async () => { for await (const _ of stream(byId("anthropic"), { key: "k", model: "m", messages: [userMsg("hi")] }, bad)) void _; }, /401 Unauthorized: invalid x-api-key/);
 });
+
+test("in-browser provider: no key, no server, and a clear refusal without WebGPU", async () => {
+	const p = byId("browser");
+	assert.equal(p.kind, "webllm");
+	assert.ok(p.local && p.usage === false);
+	assert.ok(p.models.some((m) => m.includes("Hermes")), "at least one tool-capable model is offered");
+	// Node has a navigator but no WebGPU, which is exactly the browser-without-WebGPU case.
+	await assert.rejects(async () => { for await (const _ of stream(p, { model: p.models[0], messages: [userMsg("hi")] })) void _; }, /no WebGPU/);
+});

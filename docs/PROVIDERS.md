@@ -7,6 +7,7 @@ adding one is a table row and, at most, a new wire format.
 
 | Provider | Wire format | Key | Notes |
 |---|---|---|---|
+| **In your browser (WebGPU)** | WebLLM, in a worker | none | the model runs on your own GPU inside the tab; no server, nothing leaves the machine; see below |
 | Anthropic | Messages API | [console](https://console.anthropic.com/settings/keys) | streaming, tool use; adaptive thinking is the model's default and nothing is sent to change it |
 | OpenAI | `/chat/completions` | [platform](https://platform.openai.com/api-keys) | |
 | Google Gemini | `generateContent` | [AI Studio](https://aistudio.google.com/apikey) | function calls get client-side ids |
@@ -28,6 +29,39 @@ Messages are the Anthropic shape: `{role, content: [blocks]}` where a block is
 into each wire format; `makeParser()` turns each wire format's stream events
 into `text`, `tool`, `usage` and `stop`. Both are pure functions with tests
 against recorded events.
+
+## Inside the browser, on your GPU
+
+Pick **In your browser (WebGPU, no server)** in Settings. There is no key
+and no server: the model runs inside the tab on your GPU through the
+[WebLLM](https://github.com/mlc-ai/web-llm) runtime, in a web worker so the
+desktop stays responsive. The first use downloads the weights (0.5 to 5 GB
+depending on the model) into the browser's cache and reports progress in the
+chat's status line; after that it is instant and works offline.
+
+- **Needs WebGPU**: Chrome or Edge on any desktop, Safari 26 on macOS and
+  iOS. Firefox is catching up. Without it the provider says so and points
+  at Ollama.
+- **Models**: press *Fetch models* to list everything the runtime offers
+  (Llama 3.2 and 3.1, Hermes 3, Qwen 3, Phi 4 mini, Gemma 2, SmolLM2,
+  DeepSeek-R1 distills). Start with `Llama-3.2-3B-Instruct-q4f16_1-MLC`
+  (about 2 GB) or `Qwen3-0.6B-q4f16_1-MLC` (about 0.5 GB) on a laptop.
+- **Tools**: only the Hermes models know how to call functions, so only
+  they get the tool list; the others answer in text. The runtime's own
+  list of tool-capable models is what decides, not a guess here.
+- **Memory**: an 8B model wants about 6 GB of GPU memory; a 3B model about
+  2.5 GB. If the tab crashes, choose a smaller one.
+
+This is the one place the desktop loads code from a CDN
+(`cdn.jsdelivr.net/npm/@mlc-ai/web-llm`, pinned to a version), and it does so
+only when this provider is chosen. A GPU inference engine is not something
+to rewrite for the sake of a rule; the rule's purpose, that you can read
+what runs, still holds: the runtime is open source and the pin is in
+`providers.js`.
+
+For local models with more control (any GGUF, CPU inference, bigger
+contexts), run Ollama or LM Studio and pick those instead; they speak
+`/chat/completions` and are listed above.
 
 ## Calling from a browser
 
@@ -64,7 +98,7 @@ sends `anthropic-beta: server-side-fallback-2026-07-01` and
 ## Adding a provider
 
 Add a row to `PROVIDERS` in `os/desktop/js/providers.js` with an `id`, a
-`name`, a `kind` (`anthropic`, `openai` or `gemini`), a `base` URL, a few
+`name`, a `kind` (`anthropic`, `openai`, `gemini` or `webllm`), a `base` URL, a few
 `models` and a `keys` link. If it speaks one of the three wire formats, that
 is the whole change. If it does not, add a branch to `buildRequest()` and a
 parser to `makeParser()`, and a test in `tests/providers.test.js` with a
