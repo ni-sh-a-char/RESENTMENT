@@ -34,6 +34,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }   /* wins over the display rules below */
 html, body { height: 100%; margin: 0; }
 body { font: 14px/1.5 var(--sans); color: var(--fg); background: var(--bg); overflow: hidden; -webkit-font-smoothing: antialiased; }
 a { color: var(--accent); }
