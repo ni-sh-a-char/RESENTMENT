@@ -15,6 +15,7 @@ in the initrd.
 """
 import base64
 import os
+import re
 import socket
 import struct
 import subprocess
@@ -25,6 +26,9 @@ import time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BRIDGE = os.path.join(ROOT, "os", "bridge", "bridge.py")
 PORT, SERIAL = 7499, 45199
+# The kernel colours its prompt and its replies; the desktop strips these
+# before it looks at anything, and so does this test.
+ANSI = re.compile(rb"\[[0-9;]*[A-Za-z]")
 
 
 def ws_connect(port, path="/serial"):
@@ -62,10 +66,10 @@ def ws_read_until(s, needle, timeout=30):
     buf = b""
     s.settimeout(timeout)
     deadline = time.time() + timeout
-    while needle not in buf and time.time() < deadline:
+    while needle not in ANSI.sub(b"", buf) and time.time() < deadline:
         _, data = ws_recv(s)
         buf += data
-    return buf
+    return ANSI.sub(b"", buf)
 
 
 def fake_kernel():
