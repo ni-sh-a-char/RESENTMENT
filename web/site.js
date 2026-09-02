@@ -59,8 +59,9 @@
     var n = new Date();
     var m = n.getMinutes() + n.getSeconds() / 60, h = (n.getHours() % 12) + m / 60;
     var sep = Math.abs(h * 30 - m * 6) % 360; if (sep > 180) sep = 360 - sep;
-    root.style.setProperty("--hue", Math.round(20 + sep * 1.8));
-    root.style.setProperty("--hue-2", Math.round(200 + sep));
+    var hue = Math.round(200 + sep * 0.89);      /* cyan, then blue, violet, rose */
+    root.style.setProperty("--hue", hue);
+    root.style.setProperty("--hue-2", hue - 160);  /* brass at 0 degrees, always 160 behind */
     if (until) {
       var u = new Date(n.getTime() + 15 * 60000);
       until.textContent = String(u.getHours()).padStart(2, "0") + ":" + String(u.getMinutes()).padStart(2, "0");

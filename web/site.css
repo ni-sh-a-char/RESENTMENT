@@ -8,7 +8,7 @@
  */
 
 :root {
-  --hue: 38; --hue-2: 180;
+  --hue: 200; --hue-2: 40;
   --accent:   hsl(var(--hue) 78% 62%);
   --accent-2: hsl(var(--hue-2) 60% 58%);
   --accent-soft: hsl(var(--hue) 70% 62% / .14);
