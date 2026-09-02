@@ -14,6 +14,8 @@ import { APPS, appById, ICONS } from "./apps.js";
 
 const $ = (s) => document.querySelector(s);
 
+const root = document.documentElement;
+
 async function boot() {
 	let store;
 	try { store = await new Store(idbBackend()).open(); }
@@ -182,19 +184,22 @@ async function boot() {
 	setInterval(tick, 1000); tick();
 
 	/* --------------------------------------------- theme and the clock */
-	const root = document.documentElement;
 	const applyTheme = () => { root.setAttribute("data-theme", settings.get("theme")); try { localStorage.setItem("resentment-theme", settings.get("theme")); } catch { /* blocked */ } };
 	on("settings", applyTheme); applyTheme();
 	function hue(n) {
-		if (settings.get("accent") !== "time") { root.style.setProperty("--hue", 38); root.style.setProperty("--hue-2", 180); return; }
+		if (settings.get("accent") !== "time") { root.style.setProperty("--hue", 200); root.style.setProperty("--hue-2", 40); return; }
 		/* Kaalka keys from the separations between the clock hands. The
 		 * hour-minute separation picks the hue; it sweeps the wheel about
 		 * eleven times a day, so mornings and evenings never match. */
 		const m = n.getMinutes() + n.getSeconds() / 60, h = (n.getHours() % 12) + m / 60;
 		const sep = Math.abs(h * 30 - m * 6) % 360;
 		const d = sep > 180 ? 360 - sep : sep;
-		root.style.setProperty("--hue", Math.round(20 + d * 1.8));
-		root.style.setProperty("--hue-2", Math.round(200 + d));
+		/* 0° apart is the kernel's own cyan and brass; the separation then
+		 * walks the primary through blue, violet and rose, and the second
+		 * accent stays 160° behind it so the two never blur together. */
+		const hue = Math.round(200 + d * 0.89);
+		root.style.setProperty("--hue", hue);
+		root.style.setProperty("--hue-2", hue - 160);
 	}
 	wallpaper();
 
