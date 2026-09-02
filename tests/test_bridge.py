@@ -28,7 +28,7 @@ BRIDGE = os.path.join(ROOT, "os", "bridge", "bridge.py")
 PORT, SERIAL = 7499, 45199
 # The kernel colours its prompt and its replies; the desktop strips these
 # before it looks at anything, and so does this test.
-ANSI = re.compile(rb"[[0-9;]*[A-Za-z]")
+ANSI = re.compile(rb"\x1b\[[0-9;]*[A-Za-z]")
 
 
 def ws_connect(port, path="/serial"):
