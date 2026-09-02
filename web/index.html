@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://ni-sh-a-char.github.io/RESENTMENT/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="RESENTMENT OS — give an AI a computer. Take it back at a time you choose.">
-<meta property="og:description" content="An AI operating system on its own kernel and your own key. Authority expires, the system is one hash, agents are processes, nothing is forgotten. Any provider. No server.">
+<meta property="og:description" content="An AI operating system on its own kernel and your own key, or your own GPU. Authority expires, the system is one hash, agents are processes, nothing is forgotten. Any provider, or none. No server.">
 <meta property="og:url" content="https://ni-sh-a-char.github.io/RESENTMENT/">
 <meta property="og:image" content="https://ni-sh-a-char.github.io/RESENTMENT/social-preview.png">
 <meta property="og:image:width" content="1280">
@@ -56,8 +56,9 @@ try { var t = localStorage.getItem("resentment-os-theme"); if (t) document.docum
           RESENTMENT OS is an AI operating system built on its own kernel.
           Agents hold <strong>leases</strong>, not permissions, and every one
           expires. The whole system is <strong>one hash</strong>. Any model
-          provider works with <strong>your key</strong>, and nothing leaves
-          your browser.
+          provider works with <strong>your key</strong>, or a model runs on
+          <strong>your own GPU</strong> inside the browser, and nothing leaves
+          your machine.
         </p>
         <div class="cta">
           <a class="btn primary" href="os/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Open the OS</a>
@@ -65,8 +66,8 @@ try { var t = localStorage.getItem("resentment-os-theme"); if (t) document.docum
           <a class="btn ghost" href="https://github.com/ni-sh-a-char/RESENTMENT" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6C20.6 22.3 24 17.8 24 12.5 24 5.9 18.6.5 12 .5z"/></svg>Source</a>
         </div>
         <ul class="facts">
-          <li><b>12</b> providers, <b>3</b> wire formats</li>
-          <li><b>0</b> servers, <b>0</b> dependencies</li>
+          <li><b>13</b> providers, one of them <b>your GPU</b></li>
+          <li><b>0</b> servers, <b>0</b> build steps</li>
           <li><b>1</b> hash for the whole system</li>
           <li><b>3</b> architectures under it</li>
         </ul>
@@ -79,7 +80,7 @@ try { var t = localStorage.getItem("resentment-os-theme"); if (t) document.docum
             <iframe src="os/" title="RESENTMENT OS, running" loading="lazy" tabindex="-1"></iframe>
           </div>
         </div>
-        <p class="demo-note">Runs here, in the page. Add a key in its Settings to bring a model. Everything it stores stays in this browser.</p>
+        <p class="demo-note">Runs here, in the page. Add a key in its Settings, or pick a model that runs on your GPU. Everything it stores stays in this browser.</p>
       </div>
     </div>
   </div>
@@ -155,17 +156,17 @@ try { var t = localStorage.getItem("resentment-os-theme"); if (t) document.docum
   <div class="wrap">
     <div class="split">
       <div>
-        <h2>Any provider. Your key. No middleman.</h2>
-        <p class="section-lede">The desktop speaks three wire formats, which is every model API anyone sells. Paste a key, pick a model, done. The key is stored in your browser, optionally sealed under a passphrase, and sent to exactly one place: the provider's own endpoint.</p>
+        <h2>Any provider. Your key. Or no key at all.</h2>
+        <p class="section-lede">The desktop speaks three wire formats, which is every model API anyone sells, and it can run a model on your own GPU inside the tab with no server and no key. Paste a key or pick a local model, done. A key is stored in your browser, optionally sealed under a passphrase, and sent to exactly one place: the provider's own endpoint.</p>
         <div class="chips">
-          <span>Anthropic</span><span>OpenAI</span><span>Google Gemini</span><span>Groq</span><span>Mistral</span><span>xAI</span><span>DeepSeek</span><span>OpenRouter</span><span>Together</span><span class="local">Ollama</span><span class="local">LM Studio</span><span class="local">vLLM · llama.cpp · any URL</span>
+          <span class="gpu">In your browser · WebGPU</span><span>Anthropic</span><span>OpenAI</span><span>Google Gemini</span><span>Groq</span><span>Mistral</span><span>xAI</span><span>DeepSeek</span><span>OpenRouter</span><span>Together</span><span class="local">Ollama</span><span class="local">LM Studio</span><span class="local">vLLM · llama.cpp · any URL</span>
         </div>
         <a class="btn" href="providers.html">Every provider, and the CORS notes →</a>
       </div>
       <div class="flow">
         <div class="node you"><b>Your browser</b><span>the desktop, your files, your key</span></div>
         <div class="arrow"><span>one request, streamed back</span></div>
-        <div class="node them"><b>The provider you chose</b><span>and nobody else</span></div>
+        <div class="node them"><b>The provider you chose</b><span>and nobody else. Or your own GPU, and nobody at all</span></div>
         <div class="nope"><s>a RESENTMENT server</s> there isn't one</div>
       </div>
     </div>
@@ -226,6 +227,7 @@ angles=142.5,87.0,55.5</pre>
         <tbody>
           <tr><td>Desktop: windows, dock, intent bar, ten apps, offline</td><td><b class="ok">working</b>, deployed on this page</td></tr>
           <tr><td>Providers: Anthropic, OpenAI-compatible, Gemini; streaming and tool calls</td><td><b class="ok">working</b>, tested against recorded streams</td></tr>
+          <tr><td>Local models: inside the browser on WebGPU, or through Ollama, LM Studio and any local server</td><td><b class="ok">working</b>; in-browser needs a WebGPU browser and one download per model</td></tr>
           <tr><td>Leases, ledger with undo, digest with snapshot, diff and attest</td><td><b class="ok">working</b>, tested</td></tr>
           <tr><td>Vault: plain, or AES-GCM under a passphrase</td><td><b class="ok">working</b>, tested</td></tr>
           <tr><td>Bridge: QEMU's serial line over a WebSocket</td><td><b class="ok">working</b>, tested against a fake kernel and against QEMU in CI</td></tr>

@@ -44,8 +44,10 @@ sh tools/fetch-v2.sh && python3 tools/mksite.py --serve
 
 Match the surrounding file. Beyond that:
 
-- **No dependencies.** The desktop is static files and ES modules; the bridge
-  is the Python standard library. A pull request that adds a `package.json`
+- **No dependencies**, with one exception. The desktop is static files and ES
+  modules; the bridge is the Python standard library; the WebLLM runtime is
+  loaded from a pinned CDN URL only when the in-browser provider is chosen,
+  because a GPU inference engine is not something to rewrite. A pull request that adds a `package.json`
   with dependencies, a bundler, or a framework will be asked what it needed
   that the platform does not provide.
 - **No server.** Nothing leaves the browser except a request to the provider

@@ -125,6 +125,7 @@ p { margin: 0 0 1em; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
 .chips span { padding: 6px 13px; border-radius: 99px; border: 1px solid var(--line-strong); font-size: 13.5px; font-weight: 500; background: var(--bg); }
 .chips span.local { border-style: dashed; color: var(--fg-muted); }
+.chips span.gpu { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 .flow { display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: var(--radius-lg); border: 1px solid var(--line); background: var(--bg); }
 .node { padding: 16px 18px; border-radius: var(--radius); border: 1px solid var(--line-strong); background: var(--panel); display: flex; flex-direction: column; }
 .node b { font-size: 15px; } .node span { font-size: 13px; color: var(--fg-muted); }
