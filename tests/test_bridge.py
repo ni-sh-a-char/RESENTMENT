@@ -66,9 +66,12 @@ def ws_read_until(s, needle, timeout=30):
     buf = b""
     s.settimeout(timeout)
     deadline = time.time() + timeout
-    while needle not in ANSI.sub(b"", buf) and time.time() < deadline:
-        _, data = ws_recv(s)
-        buf += data
+    try:
+        while needle not in ANSI.sub(b"", buf) and time.time() < deadline:
+            _, data = ws_recv(s)
+            buf += data
+    except TimeoutError:
+        pass    # the caller's assertion prints what did arrive
     return ANSI.sub(b"", buf)
 
 
@@ -147,7 +150,7 @@ def main():
             ws_read_until(s, b"resentment>")
             ws_send(s, b".run /boot/bin/facts.she\r")
             out = ws_read_until(s, b"resentment>", 60)
-            assert b"arch=" in out and b"digest=" in out, out[-600:]
+            assert b"arch=" in out and b"digest=" in out, b"no prompt after facts.she; got: " + out[-800:]
             print("  ok    the OS's own SHE program runs in the kernel's initrd")
             ws_send(s, b".poweroff\r")
             time.sleep(1)

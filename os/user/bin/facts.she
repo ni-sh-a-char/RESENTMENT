@@ -11,6 +11,15 @@ say "arch=" + s["arch"]
 say "cpus=" + s["cpus"]
 say "memory_free=" + s["memory_free"]
 say "digest=" + digest()
+
 let a = angles()
-say "angles=" + a[0] + "," + a[1] + "," + a[2]
-say "boots=" + text(recall("boot_count"))
+say "hour_minute=" + a["hour_minute"]
+say "minute_second=" + a["minute_second"]
+say "hour_second=" + a["hour_second"]
+
+let boots = recall("boot_count")
+if boots is nothing then
+  say "boots=unknown"
+else
+  say "boots=" + boots
+end
