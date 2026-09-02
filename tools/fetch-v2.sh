@@ -16,7 +16,9 @@ BRANCH=v2.0.0
 if git rev-parse -q --verify "refs/heads/$BRANCH" >/dev/null 2>&1; then
 	REF="refs/heads/$BRANCH"
 else
-	git fetch -q origin "$BRANCH:refs/remotes/origin/$BRANCH" || true
+	# Fully qualified: a tag shares the branch's name, and a bare name
+	# resolves to the tag, which is a release and not the branch head.
+	git fetch -q origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
 	REF="refs/remotes/origin/$BRANCH"
 fi
 
