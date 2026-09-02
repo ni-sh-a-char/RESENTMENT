@@ -114,6 +114,7 @@ async function boot() {
 	dock.innerHTML = APPS.map((a) => `<button data-app="${a.id}" title="${esc(a.name)}" aria-label="${esc(a.name)}">${a.icon}<i></i></button>`).join("");
 	dock.addEventListener("click", (e) => {
 		const b = e.target.closest("button"); if (!b) return;
+		b.blur();
 		const open = wm.byApp(b.dataset.app);
 		if (open.length && appById(b.dataset.app).single) { const w = open[0]; if (wm.active === w && !w.minimized) wm.minimize(w); else wm.focus(w); }
 		else if (open.length && !e.shiftKey && open.some((w) => w.minimized || wm.active !== w)) wm.focus(open.find((w) => w.minimized) || open[0]);

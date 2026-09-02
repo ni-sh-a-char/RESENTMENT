@@ -69,6 +69,11 @@ export class WM {
 		if (this.narrow) this.maximize(w, true);
 		this.focus(w);
 		try { spec.body(w.body, w); } catch (e) { w.body.innerHTML = `<p class="err">${esc(e.message)}</p>`; console.error(e); }
+		/* A window that just opened should take the keyboard: the dock button
+		 * that opened it would otherwise keep focus, and Enter would open a
+		 * second one. */
+		const first = w.body.querySelector("textarea, input:not([type=hidden]):not([type=file]):not([type=checkbox])");
+		if (first) setTimeout(() => first.focus(), 0);
 		this.onChange();
 		return w;
 	}
